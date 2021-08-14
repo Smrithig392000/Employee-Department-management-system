@@ -77,12 +77,8 @@ struct employee *deleteNode(struct employee *front, int id)
         temp = temp->next;
     }
 
-    if (temp == NULL)
-        printf("Employee not found\n");
-
-    prev->next = temp->next;
-
-    free(temp);
+     if (temp == NULL)
+        printf("\n\nEmployee not found !!!\n");
     return (front);
 }
 
