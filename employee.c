@@ -62,22 +62,33 @@ void bubbleSort(struct employee *front)
 
 struct employee *deleteNode(struct employee *front, int id)
 {
-     struct employee *temp , *prev;
+     struct employee *temp , *prev, *head;
      temp=front;
-     printf("Employee Details deleted !!! \n");
-
-    if (temp != NULL && temp->emp_ID == id) {
-        front = temp->next;
+     head = front;
+    while (temp != NULL) 
+    {
+        if (temp->emp_ID == id && temp==front)
+        {
+        printf("\n\nEmployee Details deleted !!! \n");
+        front =temp->next;
         free(temp);
         return(front);
-    }
-
-    while (temp != NULL && temp->emp_ID!= id) {
+        }
+        else if(temp->emp_ID == id)
+        {
+            printf("\n\nEmployee Details deleted !!! \n");
+            front=head;
+            prev->next=temp->next;
+            free(temp);
+            return front;
+        }
+        else{
         prev = temp;
         temp = temp->next;
-    }
+        }
+     }
 
-     if (temp == NULL)
+    if (temp == NULL)
         printf("\n\nEmployee not found !!!\n");
     return (front);
 }
@@ -136,7 +147,7 @@ void edit(struct employee *front,int id)
     printf("\nPress 1 for Employee Name  change");
     printf("\nPress 2 for Employee Age  change");
     printf("\nPress 3 for Employee Department  change");
-    printf("\nEnter your choice: ");
+    printf("\n\nEnter your choice: ");
     scanf("%d",&opt);
     printf("\n-------------------------------------\n");
 
@@ -233,7 +244,7 @@ int main()
             createfile(linkList);
             break;
         case 2:
-            printf("\n\n Enter the Employee ID to be deleted: ");
+            printf("\n\nEnter the Employee ID to be deleted: ");
             scanf("%d", &ID);
             linkList = deleteNode(linkList, ID);
             createfile(linkList);
@@ -244,7 +255,7 @@ int main()
                 printf("\n No details of Employees in Database\n");
                 break;
             }
-            printf("\n Employee Details...\n");
+            printf("\nEmployee Details...\n");
             printf("---------------------------------------------\n");
             display(linkList);
             break;
@@ -263,6 +274,9 @@ int main()
             break;
         case 6:
             break;
+        default:
+        printf("\nInvalid Input !!!!! Please enter the correct choice");
+        break;
         }
     } while (choice != 6);
     return 0;
